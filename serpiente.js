@@ -7,6 +7,14 @@ const TAMANIO_CELDA = 25;
 const filas = canvas.height / TAMANIO_CELDA;
 const columnas = canvas.width / TAMANIO_CELDA;
 
+const serpiente = [
+  {x:12,y:11},
+  {x:12,y:10},
+  {x:13,y:10},
+  {x:14,y:10},
+  {x:15,y:10}
+];
+
 
     
 
@@ -37,20 +45,28 @@ function dibujarTablero() {
     }
 }
 
-function pintarParte(lineaX, lineaY){
+function pintarParte(lineaX, lineaY,color){
   const x = lineaX * TAMANIO_CELDA;
     const y = lineaY * TAMANIO_CELDA;
-    const ancho = TAMANIO_CELDA;
-    const alto = TAMANIO_CELDA;
 
-    ctx.fillStyle = "#ff0000"; 
-    ctx.fillRect(x, y, ancho, alto);
+    ctx.fillStyle = color; 
+    ctx.fillRect(x, y, TAMANIO_CELDA, TAMANIO_CELDA);
 
-    ctx.strokeStyle = "#000000"; 
-    
-    ctx.strokeRect(x, y, ancho, alto);
+    ctx.strokeStyle = "#052e16"; 
+    ctx.strokeRect(x, y, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
+function pintarSerpinte(){
+  for (let i = 0; i < serpiente.length; i++) {
+        const parte = serpiente[i];
+
+        if (i === 0) {
+            pintarParte(parte.x, parte.y, "#fbbf24"); 
+        } else {
+            pintarParte(parte.x, parte.y, "#e22564");
+        }
+    }
+}
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,13 +75,7 @@ function limpiarCanvas() {
 function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
-  pintarParte(5,5); 
-  pintarParte(10,2);  
-  pintarParte(2,23); 
-  pintarParte(23,10); 
-  pintarParte(0,15); 
-  pintarParte(23,0);
+  pintarSerpinte();
 }
-
 
 
