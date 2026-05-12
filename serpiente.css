@@ -12,8 +12,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px; /* Espacio para que respire en móviles */
-    overflow-y: auto;    /* ESTO PERMITE BAJAR LA PANTALLA */
+    padding: 40px 20px;
+    overflow-y: auto;   
     overflow-x: hidden;
 }
 
@@ -55,7 +55,7 @@ h1 {
     background: #1e293b;
     padding: 15px;
     border-radius: 18px;
-    border-bottom: 4px solid #d78108; /* Match con el canvas */
+    border-bottom: 4px solid #d78108;
 }
 
 .tarjeta-info span {
