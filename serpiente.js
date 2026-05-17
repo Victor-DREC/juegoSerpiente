@@ -178,6 +178,15 @@ function moverSerpiente() {
 }
 
 function cambiarDireccion(direccion) {
+  if (
+    direccionActual === "derecha" && direccion === "izquierda" ||
+    direccionActual === "izquierda" && direccion === "derecha" ||
+    direccionActual === "arriba" && direccion === "abajo" ||
+    direccionActual === "abajo" && direccion === "arriba"
+  ) {
+    return;
+  }
+
   direccionActual = direccion;
 }
 
@@ -255,3 +264,23 @@ function reiniciarJuego() {
 
   dibujarTodo();
 }
+
+document.addEventListener("keydown", function(evento) {
+
+  if (evento.key === "ArrowUp") {
+    cambiarDireccion("arriba");
+  }
+
+  else if (evento.key === "ArrowDown") {
+    cambiarDireccion("abajo");
+  }
+
+  else if (evento.key === "ArrowLeft") {
+    cambiarDireccion("izquierda");
+  }
+
+  else if (evento.key === "ArrowRight") {
+    cambiarDireccion("derecha");
+  }
+
+});
