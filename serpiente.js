@@ -9,6 +9,7 @@ const columnas = canvas.width / TAMANIO_CELDA;
 let intervaloSerpiente;
 let direccionActual = "derecha";
 let comida = { x: 0, y: 0 };
+let puntaje = 0;
 
 const serpiente = [
   {x:12,y:11},
@@ -135,19 +136,30 @@ function pausarJuego() {
 }
 
 function moverSerpiente() {
+  const cabezaActual = serpiente[0];
+  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y };
   if (direccionActual === "derecha") {
-    moverDerecha(); 
+    nuevaCabeza.x += 1;
   } else if (direccionActual === "izquierda") {
-    moverIzquierda();
+    nuevaCabeza.x -= 1;
   } else if (direccionActual === "arriba") {
-    moverArriba();
+    nuevaCabeza.y -= 1;
   } else if (direccionActual === "abajo") {
-    moverAbajo();
+    nuevaCabeza.y += 1;
+  }
+
+  serpiente.unshift(nuevaCabeza);
+
+  if (atrapaComida()) {
+    puntaje++;
+    document.getElementById("puntaje").innerText = puntaje;
+    generarPosicionComida();
+  } else {
+    serpiente.pop();
   }
 
   dibujarTodo();
 }
-
 function cambiarDireccion(direccion) {
   direccionActual = direccion;
 }
