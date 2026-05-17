@@ -138,6 +138,7 @@ function pausarJuego() {
 function moverSerpiente() {
   const cabezaActual = serpiente[0];
   let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y };
+
   if (direccionActual === "derecha") {
     nuevaCabeza.x += 1;
   } else if (direccionActual === "izquierda") {
@@ -150,9 +151,14 @@ function moverSerpiente() {
 
   serpiente.unshift(nuevaCabeza);
 
+  if (verificarColisionBordes()) {
+    mostrarGameOver();
+    return; 
+  }
+
   if (atrapaComida()) {
     puntaje++;
-    document.getElementById("puntaje").innerText = puntaje;
+    document.getElementById("puntos").innerText = puntaje;
     generarPosicionComida();
   } else {
     serpiente.pop();
@@ -160,6 +166,7 @@ function moverSerpiente() {
 
   dibujarTodo();
 }
+
 function cambiarDireccion(direccion) {
   direccionActual = direccion;
 }
@@ -173,7 +180,7 @@ function generarPosicionComida() {
 }
 
 function pintarComida() {
-  pintarParte(comida.x, comida.y, "#ef4444"); 
+  pintarParte(comida.x, comida.y, "#e88717"); 
 }
 
 function atrapaComida() {
@@ -185,3 +192,36 @@ function atrapaComida() {
   
   return false;
 }
+
+function verificarColisionBordes() {
+  const cabeza = serpiente[0];
+  const maxColumnas = canvas.width / TAMANIO_CELDA;
+  const maxFilas = canvas.height / TAMANIO_CELDA;
+  if (cabeza.x < 0 || cabeza.x >= maxColumnas || cabeza.y < 0 || cabeza.y >= maxFilas) {
+    return true; 
+  }
+  
+  return false;
+}
+
+function mostrarGameOver() {
+  clearInterval(intervaloSerpiente);
+
+  document.getElementById("estado").innerText = "Terminado";
+  document.getElementById("mensaje").innerText = "¡Presiona F5 para reiniciar el juego!";
+
+  ctx.fillStyle = "rgba(0, 0, 0, 0.65)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#ef4444";
+  ctx.font = "bold 40px 'Arial', sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  
+  ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 20);
+
+  ctx.fillStyle = "#ffffff"; 
+  ctx.font = "20px 'Arial', sans-serif";
+  ctx.fillText("Puntaje Final: " + puntaje, canvas.width / 2, canvas.height / 2 + 30);
+}
+
