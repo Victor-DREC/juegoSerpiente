@@ -11,13 +11,17 @@ let direccionActual = "derecha";
 let comida = { x: 0, y: 0 };
 let puntaje = 0;
 
-const serpiente = [
+let juegoTerminado = false;
+
+const serpienteInicial = [
   {x:12,y:11},
   {x:12,y:10},
   {x:13,y:10},
   {x:14,y:10},
   {x:15,y:10}
 ];
+
+let serpiente = [...serpienteInicial];
 
 
     
@@ -158,11 +162,16 @@ function moverSerpiente() {
 
   if (atrapaComida()) {
     puntaje++;
-    document.getElementById("puntos").innerText = puntaje;
+    document.getElementById("puntaje").innerText = puntaje;
     generarPosicionComida();
   } else {
     serpiente.pop();
   }
+
+  if(juegoTerminado){
+    return;
+  }
+
 
   dibujarTodo();
 }
@@ -205,6 +214,7 @@ function verificarColisionBordes() {
 }
 
 function mostrarGameOver() {
+  juegoTerminado = true;
   clearInterval(intervaloSerpiente);
 
   document.getElementById("estado").innerText = "Terminado";
@@ -225,3 +235,22 @@ function mostrarGameOver() {
   ctx.fillText("Puntaje Final: " + puntaje, canvas.width / 2, canvas.height / 2 + 30);
 }
 
+function reiniciarJuego() {
+
+  clearInterval(intervaloSerpiente);
+
+  juegoTerminado = false;
+  puntaje = 0;
+
+  direccionActual = "derecha";
+
+  serpiente = [...serpienteInicial];
+
+  generarPosicionComida();
+
+  document.getElementById("puntaje").innerText = puntaje;
+  document.getElementById("estado").innerText = "Listo";
+  document.getElementById("mensaje").innerText = "Juego reiniciado. Presiona iniciar.";
+
+  dibujarTodo();
+}
