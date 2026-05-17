@@ -10,6 +10,7 @@ let intervaloSerpiente;
 let direccionActual = "derecha";
 let comida = { x: 0, y: 0 };
 let puntaje = 0;
+let velocidad = 300;
 
 let juegoTerminado = false;
 
@@ -129,7 +130,7 @@ function iniciarJuego() {
 
   clearInterval(intervaloSerpiente);
 
-  intervaloSerpiente = setInterval(moverSerpiente, 1000); 
+  intervaloSerpiente = setInterval(moverSerpiente, velocidad);
 }
 
 function pausarJuego() {
