@@ -8,6 +8,7 @@ const columnas = canvas.width / TAMANIO_CELDA;
 
 let intervaloSerpiente;
 let direccionActual = "derecha";
+let comida = { x: 0, y: 0 };
 
 const serpiente = [
   {x:12,y:11},
@@ -78,6 +79,7 @@ function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
   pintarSerpinte();
+  pintarComida();
 }
 
 function moverDerecha() {
@@ -148,4 +150,21 @@ function moverSerpiente() {
 
 function cambiarDireccion(direccion) {
   direccionActual = direccion;
+}
+
+function generarPosicionComida() {
+  // Calculamos el número máximo de columnas y filas disponibles en el grid [cite: 91, 96]
+  const maxColumnas = canvas.width / TAMANIO_CELDA; // e.g., 500 / 25 = 20 columnas [cite: 93]
+  const maxFilas = canvas.height / TAMANIO_CELDA;    // e.g., 500 / 25 = 20 filas
+
+  // Math.random() genera entre 0 y 0.999. Math.floor() lo redondea hacia abajo a un entero.
+  // Esto nos asegura un número entero entre 0 y 19 (las celdas de nuestra cuadrícula) [cite: 90, 95]
+  comida.x = Math.floor(Math.random() * maxColumnas);
+  comida.y = Math.floor(Math.random() * maxFilas);
+}
+
+function pintarComida() {
+  // Invocamos pintarParte usando las coordenadas de la comida 
+  // Usamos un color rojo/tomate vibrante que resalte en el canvas oscuro
+  pintarParte(comida.x, comida.y, "#ef4444"); 
 }
