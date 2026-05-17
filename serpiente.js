@@ -93,10 +93,36 @@ function moverDerecha() {
     dibujarTodo();
 }
 
+function moverIzquierda() {
+  const cabezaActual = serpiente[0];
+  const nuevaCabeza = { x: cabezaActual.x - 1, y: cabezaActual.y };
+  serpiente.unshift(nuevaCabeza);
+  serpiente.pop();
+}
+
+function moverArriba() {
+  const cabezaActual = serpiente[0];
+  const nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y - 1 };
+  serpiente.unshift(nuevaCabeza);
+  serpiente.pop();
+}
+
+function moverAbajo() {
+  const cabezaActual = serpiente[0];
+  const nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y + 1 };
+  serpiente.unshift(nuevaCabeza);
+  serpiente.pop();
+}
+
 function cambiarDireccion(direccion) {
   if (direccion === "derecha") {
-    moverDerecha();
+    moverDerecha(); 
+  } else if (direccion === "izquierda") {
+    moverIzquierda();
+  } else if (direccion === "arriba") {
+    moverArriba();
+  } else if (direccion === "abajo") {
+    moverAbajo();
   }
-
   dibujarTodo();
 }
