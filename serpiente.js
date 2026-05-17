@@ -1,5 +1,4 @@
 
-// 1. Capturamos el canvas y su contexto de dibujo
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
 
@@ -8,6 +7,7 @@ const filas = canvas.height / TAMANIO_CELDA;
 const columnas = canvas.width / TAMANIO_CELDA;
 
 let intervaloSerpiente;
+let direccionActual = "derecha";
 
 const serpiente = [
   {x:12,y:11},
@@ -116,10 +116,6 @@ function moverAbajo() {
   serpiente.pop();
 }
 
-function moverSerpiente() {
-  console.log("moviendo");
-}
-
 function iniciarJuego() {
   document.getElementById("estado").innerText = "Jugando";
   document.getElementById("mensaje").innerText = "Juego en ejecución...";
@@ -136,15 +132,20 @@ function pausarJuego() {
   clearInterval(intervaloSerpiente); 
 }
 
-function cambiarDireccion(direccion) {
-  if (direccion === "derecha") {
+function moverSerpiente() {
+  if (direccionActual === "derecha") {
     moverDerecha(); 
-  } else if (direccion === "izquierda") {
+  } else if (direccionActual === "izquierda") {
     moverIzquierda();
-  } else if (direccion === "arriba") {
+  } else if (direccionActual === "arriba") {
     moverArriba();
-  } else if (direccion === "abajo") {
+  } else if (direccionActual === "abajo") {
     moverAbajo();
   }
+
   dibujarTodo();
+}
+
+function cambiarDireccion(direccion) {
+  direccionActual = direccion;
 }
