@@ -153,18 +153,23 @@ function cambiarDireccion(direccion) {
 }
 
 function generarPosicionComida() {
-  // Calculamos el número máximo de columnas y filas disponibles en el grid [cite: 91, 96]
-  const maxColumnas = canvas.width / TAMANIO_CELDA; // e.g., 500 / 25 = 20 columnas [cite: 93]
-  const maxFilas = canvas.height / TAMANIO_CELDA;    // e.g., 500 / 25 = 20 filas
+  const maxColumnas = canvas.width / TAMANIO_CELDA;
+  const maxFilas = canvas.height / TAMANIO_CELDA;
 
-  // Math.random() genera entre 0 y 0.999. Math.floor() lo redondea hacia abajo a un entero.
-  // Esto nos asegura un número entero entre 0 y 19 (las celdas de nuestra cuadrícula) [cite: 90, 95]
   comida.x = Math.floor(Math.random() * maxColumnas);
   comida.y = Math.floor(Math.random() * maxFilas);
 }
 
 function pintarComida() {
-  // Invocamos pintarParte usando las coordenadas de la comida 
-  // Usamos un color rojo/tomate vibrante que resalte en el canvas oscuro
   pintarParte(comida.x, comida.y, "#ef4444"); 
+}
+
+function atrapaComida() {
+  const cabeza = serpiente[0];
+
+  if (cabeza.x === comida.x && cabeza.y === comida.y) {
+    return true; 
+  }
+  
+  return false;
 }
