@@ -7,6 +7,8 @@ const TAMANIO_CELDA = 25;
 const filas = canvas.height / TAMANIO_CELDA;
 const columnas = canvas.width / TAMANIO_CELDA;
 
+let intervaloSerpiente;
+
 const serpiente = [
   {x:12,y:11},
   {x:12,y:10},
@@ -112,6 +114,26 @@ function moverAbajo() {
   const nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y + 1 };
   serpiente.unshift(nuevaCabeza);
   serpiente.pop();
+}
+
+function moverSerpiente() {
+  console.log("moviendo");
+}
+
+function iniciarJuego() {
+  document.getElementById("estado").innerText = "Jugando";
+  document.getElementById("mensaje").innerText = "Juego en ejecución...";
+
+  clearInterval(intervaloSerpiente);
+
+  intervaloSerpiente = setInterval(moverSerpiente, 1000); 
+}
+
+function pausarJuego() {
+  document.getElementById("estado").innerText = "Pausado";
+  document.getElementById("mensaje").innerText = "Juego en pausa. Presiona Iniciar para continuar.";
+
+  clearInterval(intervaloSerpiente); 
 }
 
 function cambiarDireccion(direccion) {
