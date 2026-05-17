@@ -78,4 +78,18 @@ function dibujarTodo() {
   pintarSerpinte();
 }
 
+function moverDerecha() {
+    const cabezaActual = serpiente[0];
+
+    const nuevaCabeza = {
+        x: cabezaActual.x + 1,
+        y: cabezaActual.y
+    };
+
+    serpiente.unshift(nuevaCabeza);
+
+    serpiente.pop(); 
+
+    dibujarTodo();
+}
 
