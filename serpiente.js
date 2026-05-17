@@ -93,3 +93,10 @@ function moverDerecha() {
     dibujarTodo();
 }
 
+function cambiarDireccion(direccion) {
+  if (direccion === "derecha") {
+    moverDerecha();
+  }
+
+  dibujarTodo();
+}
